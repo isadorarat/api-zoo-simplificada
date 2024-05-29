@@ -4,12 +4,15 @@ import { Ave } from './model/Ave';
 import { Habitat } from './model/Habitat';
 import { Atracao } from './model/Atracao';
 import { DatabaseModel } from './model/DatabaseModel';
+import AveController from './controller/AveController';
 
 const server = express();
 const port = 3000;
 
 server.use(express.json());
 server.use(cors());
+
+const aveController = new AveController('', 0, '', 0);
 
 // Rota padrão para testes (NÃO USAR EM AMBIENTE PRODUÇÃO)
 server.get('/', (req, res) => {
@@ -27,7 +30,7 @@ server.post('/login', (req, res) => {
 // Listar todos as aves cadastradas
 server.get('/listar-aves', async (req, res) => {
     // cria objeto aves e atribui a ele o retorno do método listarAves
-    const aves = await Ave.listarAves();
+    const aves = aveController.todos();
 
     // retorna a lista de aves em formato json
     res.status(200).json(aves);
@@ -128,10 +131,10 @@ server.delete('/remover/animal', async (req, res) => {
     const resultado = await Ave.removerAve(idAnimal);
     
     if(resultado) {
-        // se o resultado for **true**, retorna mensagem de sucesso
+        // se o resultado for *true*, retorna mensagem de sucesso
         return res.status(200).json('Animal foi removido com sucesso');
     } else {
-        // se o resultado for **false**, retorna mensagem de erro
+        // se o resultado for *false*, retorna mensagem de erro
         return res.status(401).json('Erro ao remover animal');
     }
 });
@@ -150,10 +153,10 @@ server.put('/atualizar/animal', async (req, res) => {
     const result = await Ave.atualizarAve(novaAve, idAnimal);
 
     if (result) {
-        // se o resultado for **true**, retorna mensagem de sucesso
+        // se o resultado for *true*, retorna mensagem de sucesso
         return res.status(200).json('Ave atualizada com sucesso');
     } else {
-        // se o resultado for **false**, retorna mensagem de erro
+        // se o resultado for *false*, retorna mensagem de erro
         return res.status(400).json('Não foi possível atualizar a ave no banco de dados');
     }
 });
@@ -167,10 +170,10 @@ server.delete('/remover/atracao', async (req, res) => {
     const resultado = await Atracao.removerAtracao(idAtracao);
 
     if(resultado) {
-        // se o resultado for **true**, retorna mensagem de sucesso
+        // se o resultado for *true*, retorna mensagem de sucesso
         return res.status(200).json('Atração foi removida com sucesso');
     } else {
-        // se o resultado for **false**, retorna mensagem de erro
+        // se o resultado for *false*, retorna mensagem de erro
         return res.status(401).json('Erro ao remover atração');
     }
 })
@@ -189,10 +192,10 @@ server.put('/atualizar/atracao', async (req, res) => {
     const resultado = await Atracao.atualizarAtracao(novaAtracao, idAtracao);
 
     if(resultado) {
-        // se o resultado for **true**, retorna mensagem de sucesso
+        // se o resultado for *true*, retorna mensagem de sucesso
         return res.status(200).json('Atração foi alterada com sucesso');
     } else {
-        // se o resultado for **false**, retorna mensagem de erro
+        // se o resultado for *false*, retorna mensagem de erro
         return res.status(401).json('Erro ao alterar atração');
     }
 })
@@ -206,10 +209,10 @@ server.delete('/remover/habitat', async (req, res) => {
     const resultado = await Habitat.removerHabitat(idHabitat);
 
     if(resultado) {
-        // se o resultado for **true**, retorna mensagem de sucesso
+        // se o resultado for *true*, retorna mensagem de sucesso
         return res.status(200).json('Habitat foi removida com sucesso');
     } else {
-        // se o resultado for **false**, retorna mensagem de erro
+        // se o resultado for *false*, retorna mensagem de erro
         return res.status(401).json('Erro ao remover habitat');
     }
 })
@@ -228,10 +231,10 @@ server.put('/atualizar/habitat', async (req, res) => {
     const resultado = await Habitat.atualizarHabitat(novoHabitat, idHabitat);
 
     if(resultado) {
-        // se o resultado for **true**, retorna mensagem de sucesso
+        // se o resultado for *true*, retorna mensagem de sucesso
         return res.status(200).json('Habitat foi atualizado com sucesso');
     } else {
-        // se o resultado for **false**, retorna mensagem de erro
+        // se o resultado for *false*, retorna mensagem de erro
         return res.status(401).json('Erro ao atualizar habitat');
     }
 })
