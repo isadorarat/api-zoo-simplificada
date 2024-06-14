@@ -63,9 +63,9 @@ class AveController extends Ave {
         // caso aconteça algum erro, é lançada uma exceção
         } catch (error) {
             // caso aconteça algum erro, este é lançado nos logs do servidor
-            console.log(`Erro ao acessar: ${error}`);
+            console.log(`Erro ao cadastrar a ave: ${error}`);
             // retorna um status 400 com uma mensagem de erro
-            return res.status(400).json('Erro ao cadastrar ave');
+            return res.status(400).json('Erro ao cadastrar ave, consulte os logs no servidor');
         }
     }
 
